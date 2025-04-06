@@ -2,9 +2,9 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>AudIT</title><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>AudIT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    /* Сохраняем все оригинальные стили */
     body {
       margin: 0;
       padding: 0;
@@ -12,11 +12,7 @@
       font-family: 'Roboto', Arial, sans-serif;
       text-align: center;
       color: #ffffff;
-      background:
-        url("{{ url_for('static', filename='images/Background2.png') }}")
-        center/cover
-        no-repeat
-        fixed;
+      background: url("{{ url_for('static', filename='images/Background1.png') }}") center/cover no-repeat fixed;
     }
 
     h1 {
@@ -44,7 +40,7 @@
       outline: none;
       margin: 20px;
       transition: transform 0.3s;
-      font-family: 'Roboto', sans-serif; /* Добавлено для кнопок */
+      font-family: 'Roboto', sans-serif;
       font-weight: 500;
     }
 
@@ -81,11 +77,10 @@
       padding: 10px 20px;
       font-size: 14px;
       margin-bottom: 60px;
-      font-family: 'Roboto', sans-serif; /* Добавлено для футера */
+      font-family: 'Roboto', sans-serif;
       font-weight: 400;
     }
 
-    /* Новые стили для страницы аудита */
     .document-type-container {
       margin: 100px 40px auto;
       max-width: 600px;
@@ -98,9 +93,8 @@
       margin: 15px 0;
       cursor: pointer;
       transition: all 0.3s;
-      font-family: 'Roboto', sans-serif; /* Добавлено для кнопок */
+      font-family: 'Roboto', sans-serif;
       font-weight: 600;
-
     }
 
     .document-type-option:hover {
@@ -126,7 +120,7 @@
       color: #00BCD4;
     }
 
-      .back-arrow {
+    .back-arrow {
       position: fixed;
       bottom: 30px;
       left: 30px;
@@ -148,9 +142,9 @@
 
     .back-arrow:hover {
       background-color: #AB47BC;
-      transform: rotate(180deg) scale(1.1); /* Сохраняем поворот при увеличении */
+      transform: rotate(180deg) scale(1.1);
       box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-}
+    }
   </style>
 </head>
 <body>
@@ -166,15 +160,16 @@
     Прикрепить документ
   </button>
 
-  <input type="file" id="fileInput" onchange="handleFileSelect(event)">
+<input type="file" id="fileInput" accept=".txt,.docx,.pdf" onchange="handleFileSelect(event)">
 
   <div class="status-message" id="statusMessage"></div>
+
+  <div id="fileContent" class="status-message hidden"></div>
 
   <a href="{{ url_for('welcome') }}" class="back-arrow">
     ➜
   </a>
 
-  <!-- Футер -->
   <footer class="footer-bubble">
     САЙТ ДЛЯ АУДИТОВ ИИ. ВСЕ ПРАВА ЗАЩИЩЕНЫ.
   </footer>
@@ -184,16 +179,13 @@
     let selectedFile = null;
 
     function selectType(type) {
-      // Сбрасываем предыдущий выбор
       document.querySelectorAll('.document-type-option').forEach(el => {
         el.classList.remove('selected');
       });
 
-      // Помечаем выбранный тип
       event.target.classList.add('selected');
       selectedType = type;
 
-      // Показываем кнопку загрузки
       document.getElementById('uploadButton').classList.remove('hidden');
       document.getElementById('statusMessage').textContent = '';
     }
@@ -233,7 +225,13 @@
         const result = await response.json();
 
         if (response.ok) {
-          showMessage(`Анализ завершен: ${result.summary}`, 'success');
+          showMessage('Анализ завершен', 'success');
+          document.getElementById('fileContent').innerHTML = `
+            Название документа: ${result.filename}<br>
+            Краткое содержимое: ${result.summary}<br>
+            <a href="/view/${result.filename}" target="_blank">Просмотреть полный документ</a>
+          `;
+          document.getElementById('fileContent').classList.remove('hidden');
         } else {
           showMessage(`Ошибка: ${result.error}`, 'error');
         }
