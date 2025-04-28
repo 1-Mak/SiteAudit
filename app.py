@@ -43,6 +43,15 @@ def audit():
     # Показываем шаблон about.html
     return render_template('audit.html')
 
+@app.route('/audit_hand')
+def audit_hand():
+    # Показываем шаблон about.html
+    return render_template('upload_file.html')
+
+@app.route('/upload_file')
+def upload_file():
+    # Показываем шаблон about.html
+    return render_template('upload_file.html')
 
 @app.route('/analyze', methods=['POST'])
 def analyze():

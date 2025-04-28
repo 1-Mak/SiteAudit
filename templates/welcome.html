@@ -51,6 +51,7 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       font-family: 'Roboto', sans-serif; /* Добавлено для кнопок */
       font-weight: 500; /* Средняя толщина */
+      width: 400px;
     }
 
     .main-button:hover {
@@ -84,19 +85,30 @@
     .footer-bubble:hover {
       box-shadow: 0 0 10px rgba(156, 39, 176, 0.5);
     }
+    .main-buttons-choise{
+      display: inline-flex;
+    }
   </style>
 </head>
 <body>
   <h1>AudIT</h1>
 
+  <div class="main-buttons-choise">
   <!-- Большая кнопка "Начать аудит" -->
   <form action="{{ url_for('audit') }}" method="get">
+    <button class="main-button" type="submit">Аудит нейросетью</button>
+  </form>
+  <form action="{{ url_for('audit_hand') }}" method="get">
     <button class="main-button" type="submit">Начать аудит</button>
   </form>
+  <form action="{{ url_for('upload_file') }}" method="get">
+    <button class="main-button" type="submit">Прикрепить файл</button>
+  </form>
+</div>
 
   <!-- Кнопка "О НАС" -->
   <form action="{{ url_for('about') }}" method="get">
-      <button class="main-button" type="submit">О НАС</button>
+      <button class="main-button" type="submit">ОУ ЕС</button>
   </form>
 
   <!-- Футер -->

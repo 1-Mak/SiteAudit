@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>AudIT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #424242;
+      font-family: 'Roboto', Arial, sans-serif;
+      text-align: center;
+      color: #ffffff;
+      background: url("{{ url_for('static', filename='images/Background1.png') }}") center/cover no-repeat fixed;
+    }
+
+    h1 {
+      margin-top: 60px;
+      font-size: 72px;
+      color: #00BCD4;
+      margin-bottom: 40px;
+      transition: text-shadow 0.3s ease;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+    }
+
+    h1:hover {
+      text-shadow: 0 0 15px #00BCD4;
+    }
+
+    .main-button {
+      background-color: #9C27B0;
+      color: #ffffff;
+      font-size: 24px;
+      padding: 20px 60px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      outline: none;
+      margin: 20px;
+      transition: transform 0.3s;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+    }
+
+    .main-button:hover {
+      transform: scale(1.05);
+    }
+
+    .floating-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #00BCD4;
+      color: #ffffff;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .footer-bubble {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #9C27B0;
+      color: #ffffff;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 14px;
+      margin-bottom: 60px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+    }
+
+    .document-type-container {
+      margin: 0px 40px 0px;
+      max-width: 600px;
+    }
+
+    .document-type-option {
+      background-color: #616161;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 15px 0;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 600;
+    }
+
+    .document-type-option:hover {
+      background-color: #757575;
+    }
+
+    .document-type-option.selected {
+      background-color: #9C27B0;
+      box-shadow: 0 0 15px #9C27B0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .status-message {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #00BCD4;
+    }
+
+    .back-arrow {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      background-color: #9C27B0;
+      color: #ffffff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      text-decoration: none;
+      font-size: 24px;
+      transform: rotate(180deg);
+    }
+
+    .back-arrow:hover {
+      background-color: #AB47BC;
+      transform: rotate(180deg) scale(1.1);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    .document-type-container-div{
+      width: 100%;
+      display: flex; /* Меняем inline-flex на flex */
+      justify-content: space-between; /* Распределяем пространство между контейнерами */
+    }
+    .document-type-container-right{
+      justify-content: right;
+    }
+    .document-type-option-right{
+      background-color: #616161;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 15px 0;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 600;
+    }
+    .document-type-option-right.multi-selected {
+      background-color: #9C27B0;
+      box-shadow: 0 0 15px #9C27B0;
+    }
+  </style>
+</head>
+<body>
+  <h1>РУКАМИ</h1>
+  <div class="document-type-container-div">
+    <div class="document-type-container">
+      <h2>Выберите тип документа:</h2>
+      <div class="document-type-option" onclick="selectType(1)">Инструкция по установке продукта</div>
+      <div class="document-type-option" onclick="selectType(2)">README</div>
+      <div class="document-type-option" onclick="selectType(3)">End-to-end</div>
+    </div>
+    <div id="document-right-1" class="document-type-container-right hidden">
+      <h2>Проверки для инструкций:</h2>
+      <div class="document-type-option-right" onclick="toggleMultiSelect(1)">Проверка шагов установки</div>
+      <div class="document-type-option-right" onclick="toggleMultiSelect(2)">Проверка системных требований</div>
+      <div class="document-type-option-right" onclick="toggleMultiSelect(3)">Проверка скриншотов</div>
+    </div>
+
+    <div id="document-right-2" class="document-type-container-right hidden">
+      <h2>Проверки для README:</h2>
+      <div class="document-type-option-right" onclick="toggleMultiSelect(4)">Проверка формата Markdown</div>
+      <div class="document-type-option-right" onclick="toggleMultiSelect(5)">Проверка ссылок</div>
+      <div class="document-type-option-right" onclick="toggleMultiSelect(6)">Проверка лицензии</div>
+    </div>
+
+    <div id="document-right-3" class="document-type-container-right hidden">
+      <h2>Проверки для End-to-end:</h2>
+      <div class="document-type-option-right" onclick="toggleMultiSelect(7)">Проверка тест-кейсов</div>
+      <div class="document-type-option-right" onclick="toggleMultiSelect(8)">Проверка результатов</div>
+      <div class="document-type-option-right" onclick="toggleMultiSelect(9)">Проверка окружения</div>
+    </div>
+  </div>
+</div>
+  <button id="uploadButton" class="main-button hidden" onclick="triggerFileInput()">
+    Прикрепить документ
+  </button>
+
+<input type="file" id="fileInput" accept=".txt,.docx,.pdf" onchange="handleFileSelect(event)">
+
+  <div class="status-message" id="statusMessage"></div>
+
+  <div id="fileContent" class="status-message hidden"></div>
+
+  <a href="{{ url_for('welcome') }}" class="back-arrow">
+    ➜
+  </a>
+
+  <footer class="footer-bubble">
+    САЙТ ДЛЯ АУДИТОВ ИИ. ВСЕ ПРАВА ЗАЩИЩЕНЫ.
+  </footer>
+
+  <script>
+    let selectedType = null;
+    let selectedFile = null;
+    let selectedTypes = new Set();
+
+    function selectType(type) {
+      // Сброс предыдущего выбора
+      document.querySelectorAll('.document-type-option').forEach(el => {
+        el.classList.remove('selected');
+      });
+      document.querySelectorAll('[id^="document-right-"]').forEach(el => {
+        el.classList.add('hidden');
+      });
+      selectedTypes.clear();
+      document.querySelectorAll('.multi-selected').forEach(el => {
+        el.classList.remove('multi-selected');
+      });
+
+      // Установка нового выбора
+      event.target.classList.add('selected');
+      selectedType = type;
+      
+      // Показ соответствующего правого контейнера
+      const rightContainer = document.getElementById(`document-right-${type}`);
+      if (rightContainer) {
+        rightContainer.classList.remove('hidden');
+      }
+      
+      document.getElementById('uploadButton').classList.remove('hidden');
+      document.getElementById('statusMessage').textContent = '';
+    }
+
+    function toggleMultiSelect(type) {
+      const option = event.target;
+      
+      if (selectedTypes.has(type)) {
+        selectedTypes.delete(type);
+        option.classList.remove('multi-selected');
+      } else {
+        selectedTypes.add(type);
+        option.classList.add('multi-selected');
+      }
+      
+      updateSelectionState();
+    }
+
+    function updateSelectionState() {
+  const uploadButton = document.getElementById('uploadButton');
+  uploadButton.textContent = selectedTypes.size > 0 
+    ? `Прикрепить (${selectedTypes.size} выбрано)` 
+    : 'Прикрепить документ';
+}
+
+function triggerFileInput() {
+  if (!selectedType) {
+    showMessage('Сначала выберите тип документа!', 'error');
+    return;
+  }
+  document.getElementById('fileInput').click();
+}
+
+    function handleFileSelect(event) {
+      selectedFile = event.target.files[0];
+      if (selectedFile) {
+        uploadFile();
+      }
+    }
+
+    async function uploadFile() {
+      if (!selectedType || !selectedFile || selectedTypes.size === 0) return;
+
+      const statusMessage = document.getElementById('statusMessage');
+      statusMessage.textContent = 'Обработка документа...';
+      statusMessage.style.color = '#00BCD4';
+
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      formData.append('docType', selectedType);
+      selectedTypes.forEach(type => {
+        formData.append('checks[]', type);
+      });
+
+      try {
+        const response = await fetch('/analyze', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          showMessage('Анализ завершен', 'success');
+          document.getElementById('fileContent').innerHTML = `
+            Название документа: ${result.filename}<br>
+            Краткое содержимое: ${result.summary}<br>
+            <a href="/view/${result.filename}" target="_blank">Просмотреть полный документ</a>
+          `;
+          document.getElementById('fileContent').classList.remove('hidden');
+        } else {
+          showMessage(`Ошибка: ${result.error}`, 'error');
+        }
+      } catch (error) {
+        showMessage('Ошибка соединения с сервером', 'error');
+      }
+    }
+
+    function showMessage(text, type) {
+      const statusMessage = document.getElementById('statusMessage');
+      statusMessage.textContent = text;
+      statusMessage.style.color = type === 'error' ? '#ff4444' : '#00BCD4';
+    }
+  </script>
+</body>
+</html>
