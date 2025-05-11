@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <title>AUDIT.it</title>
+  <link href="../static/css/2.audit_styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+    function createRatingScale(container, criterionNumber) {
+        const name = `criterion${criterionNumber}`;
+        
+        for(let i = 1; i <= 10; i++) {
+            const label = document.createElement('label');
+            label.className = 'grade-option';
+            
+            const input = document.createElement('input');
+            input.type = 'radio';
+            input.name = name;
+            input.value = i;
+            
+            const span = document.createElement('span');
+            span.textContent = i;
+            
+            label.appendChild(input);
+            label.appendChild(span);
+            container.appendChild(label);
+        }
+    }
+</script>
+</head> 
+
+<body>  
+  <header>
+    <div class="name">AUDIT.it</div>
+    <ul>
+      <li><a href="#">Log in</a></li>
+      <li>|</li>
+      <li><a href="#">Sign up</a></li>
+    </ul>
+  </header>
+
+  <article>
+    <a href="{{ url_for('welcome') }}" class="article">←Back</a>
+    <div class="name-container">
+      <div class="article line">Manual Audit</div>
+      <p>Use our pre-made templates to evaluate  your file</p>
+    </div>
+  </article>
+
+ 
+    <div class="audit-container">
+    
+        <div class="document-viewer">
+            <div class="document-content">
+                <div class="article">Document Preview</div>
+                <div id="file-content">
+                    <!-- Сюда будет вставляться содержимое документа -->
+                </div>
+            </div>
+        </div>
+
+    <div class="criteria-panel">
+        <div class="article">Criteria evaluation</div>
+        <ol class="criteria-list">
+            <li class="criterion-item">
+                <div class="criterion-header">
+                    <h3>Introduction and Project Goal</h3>
+                    <ul>
+                        <li>Pitch paragraph (short, defines project essence, problem, audience, uniqueness).</li>
+                        <li>Must include keywords (library, framework, open-source).</li>
+                        <li>Placed above the first ##.</li>
+                    </ul>
+                </div>
+                <div class="grade-section">
+                    <label>Grade:</label>
+                    <div class="rating-scale" data-criterion="1">
+                    </div>
+                </div>
+                <div class="comment-section">
+                    <label>Comment:</label>
+                    <textarea rows="3" placeholder="Enter your comment..."></textarea>
+                </div>
+            </li>
+            
+            <li class="criterion-item">
+                <div class="criterion-header">
+                    <h3>Clarity of Explanations</h3>
+                    <ul>
+                        <li>Logical flow: problem → solution → steps</li>
+                        <li>Clear terms, active voice, inline hints (⚠️, 💡, ✅)</li>
+                    </ul>
+                </div>
+                <div class="grade-section">
+                    <label>Grade:</label>
+                    <div class="rating-scale" data-criterion="2">
+                    </div>
+                </div>
+                <div class="comment-section">
+                    <label>Comment:</label>
+                    <textarea rows="3" placeholder="Enter your comment..."></textarea>
+                </div>
+            </li>
+
+            <li class="criterion-item">
+                <div class="criterion-header">
+                    <h3>Core Structure</h3>
+                        <ul>
+                            <li>Required sections: Installation, Usage, Contributing, License, FAQ</li>
+                            <li>Table of contents, correct heading hierarchy</li>
+                        </ul>
+                </div>
+                <div class="grade-section">
+                    <label>Grade:</label>
+                    <div class="rating-scale" data-criterion="3">
+                    </div>
+                </div>
+                <div class="comment-section">
+                    <label>Comment:</label>
+                    <textarea rows="3" placeholder="Enter your comment..."></textarea>
+                </div>
+            </li>
+
+            <li class="criterion-item">
+                <div class="criterion-header">
+                    <h3>Content Completeness</h3>
+                        <ul>
+                            <li>Cross-platform setup instructions</li>
+                            <li>Configuration details, troubleshooting, migration notes</li>
+                        </ul>
+                </div>
+                <div class="grade-section">
+                    <label>Grade:</label>
+                    <div class="rating-scale" data-criterion="4">
+                    </div>
+                </div>
+                <div class="comment-section">
+                    <label>Comment:</label>
+                    <textarea rows="3" placeholder="Enter your comment..."></textarea>
+                </div>
+            </li>
+
+            <li class="criterion-item">
+                <div class="criterion-header">
+                    <h3>Usage Examples</h3>
+                        <ul>
+                            <li>Minimal Working Example (MWE)</li>
+                            <li>Production-grade demo, visual demonstrations</li>
+                        </ul>
+                </div>
+                <div class="grade-section">
+                    <label>Grade:</label>
+                    <div class="rating-scale" data-criterion="5">
+                    </div>
+                </div>
+                <div class="comment-section">
+                    <label>Comment:</label>
+                    <textarea rows="3" placeholder="Enter your comment..."></textarea>
+                </div>
+            </li>
+
+            <li class="criterion-item">
+                <div class="criterion-header">
+                    <h3>6. External Resources</h3>
+                        <ul>
+                            <li>API documentation links</li>
+                            <li>Articles/talks, issue tracker/roadmap</li>
+                        </ul>
+                </div>
+                <div class="grade-section">
+                    <label>Grade:</label>
+                    <div class="rating-scale" data-criterion="6">
+                    </div>
+                </div>
+                <div class="comment-section">
+                    <label>Comment:</label>
+                    <textarea rows="3" placeholder="Enter your comment..."></textarea>
+                </div>
+            </li>
+
+            <li class="criterion-item">
+                <div class="criterion-header">
+                    <h3>Navigation and Formatting</h3>
+                        <ul>
+                            <li>Semantic markup (lists, tables, quotes)</li>
+                            <li>Syntax highlighting in code blocks</li>
+                        </ul>
+                </div>
+                <div class="grade-section">
+                    <label>Grade:</label>
+                    <div class="rating-scale" data-criterion="7">
+                    </div>
+                </div>
+                <div class="comment-section">
+                    <label>Comment:</label>
+                    <textarea rows="3" placeholder="Enter your comment..."></textarea>
+                </div>
+            </li>
+
+            <li class="criterion-item">
+                <div class="criterion-header">
+                    <h3>Auxiliary Information</h3>
+                        <ul>
+                            <li>Communication channels (Slack, Discord)</li>
+                            <li>Changelog, roadmap, Code of Conduct</li>
+                        </ul>
+                </div>
+                <div class="grade-section">
+                    <label>Grade:</label>
+                    <div class="rating-scale" data-criterion="8">
+                    </div>
+                </div>
+                <div class="comment-section">
+                    <label>Comment:</label>
+                    <textarea rows="3" placeholder="Enter your comment..."></textarea>
+                </div>
+            </li>
+
+            <li class="criterion-item">
+                <div class="criterion-header">
+                    <h3>License and Authorship</h3>
+                        <ul>
+                            <li>License mention in README</li>
+                            <li>Authors list, third-party libraries with licenses</li>
+                        </ul>
+                </div>
+                <div class="grade-section">
+                    <label>Grade:</label>
+                    <div class="rating-scale" data-criterion="9">
+                    </div>
+                </div>
+                <div class="comment-section">
+                    <label>Comment:</label>
+                    <textarea rows="3" placeholder="Enter your comment..."></textarea>
+                </div>
+            </li>
+
+            <li class="criterion-item">
+                <div class="criterion-header">
+                    <h3>Content Freshness</h3>
+                        <ul>
+                            <li>Recent dates/versions (≤12 months)</li>
+                            <li>No outdated tech references</li>
+                        </ul>
+                </div>
+                <div class="grade-section">
+                    <label>Grade:</label>
+                    <div class="rating-scale" data-criterion="10">
+                    </div>
+                </div>
+                <div class="comment-section">
+                    <label>Comment:</label>
+                    <textarea rows="3" placeholder="Enter your comment..."></textarea>
+                </div>
+            </li>
+
+        </ol>
+
+        <div class="button-group">
+             <div class="comment-section">
+                    <label>General comment:</label>
+                    <textarea rows="3" placeholder="Enter your comment..."></textarea>
+                </div>
+            <button class="audit article save" onclick="saveAudit()">
+                Save Audit
+            </button>
+        </div>
+    </div>
+</div>
+
+
+  <footer>
+    <div class="footer-text">WEBSITE FOR DOCUMENT AUDITS. ALL RIGHTS RESERVED.</div>
+  </footer>
+
+
+</body>
+
+<script>
+    document.querySelectorAll('.rating-scale').forEach((container, index) => {
+        createRatingScale(container, index + 1);
+    });
+
+    function saveAudit() {
+    const auditData = [];
+    
+    document.querySelectorAll('.criterion-item').forEach((item, index) => {
+        const criterion = {
+            id: index + 1,
+            grade: item.querySelector('input[type="radio"]:checked')?.value || 0,
+            comment: item.querySelector('textarea').value
+        };
+        auditData.push(criterion);
+    });
+
+    // Генерация PDF
+    const doc = new jsPDF();
+    doc.setFontSize(16);
+    doc.text('Audit Report', 15, 15);
+    
+    auditData.forEach((item, index) => {
+        const yPos = 25 + (index * 30);
+        doc.text(`${item.id}. Grade: ${item.grade}`, 15, yPos);
+        doc.text(`Comment: ${item.comment}`, 15, yPos + 10);
+    });
+
+    doc.save('audit-report.pdf');
+}
+</script>
+</html>

@@ -93,10 +93,12 @@ a:visited{
     background-color: #5765F2;
     margin-bottom: 40px;
     margin-left: 200px;
+    border: 1px solid #28282D;
 }
 
 .ai-container a:hover{
-    background-color: #4654BF;
+    background-color: #7883ff;
+    border-color: #7883ff;
 }
 
 .ai-text{

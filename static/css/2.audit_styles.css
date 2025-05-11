@@ -157,8 +157,8 @@ article a:hover {
     content: "";
     position: absolute;
     display: none;
-    top: 3px;
-    left: 3px;
+    top: 2.5px;
+    left: 2px;
     width: 27px;
     height: 27px;
     border-radius: 50%;
@@ -297,10 +297,12 @@ article a:hover {
 .audit{
     color: #E4E4E5;
     background-color: #5765F2;
+    border: 1px solid;
 }
 
 .audit:hover{
-    background-color: #4654BF;
+    border-color: #7883ff;
+    background-color: #7883ff;
 }
 
 footer {
@@ -312,4 +314,120 @@ footer {
     color: #E4E4E5;
     font-size: 13px;
     font-weight: 200;
+}
+
+/* waiting */
+.wait-container{
+    margin: 100px 0;
+    padding-left: 150px;
+}
+
+.est{
+    margin-top: 40px;
+}
+/* waiting */
+
+
+/* manual manual manual*/
+.audit-container {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 30px;
+    height: calc(100vh - 140px);
+    margin: 20px auto;
+    max-width: 1600px;
+}
+
+.document-viewer {
+    background: #28282D;
+    padding: 10px 20px;
+    border-radius: 8px;
+    overflow-y: auto;
+}
+
+/* Критерии */
+.criteria-panel {
+    background: #28282D;
+    padding: 10px 20px;
+    border-radius: 8px;
+    position: sticky;
+    top: 120px;
+    height: calc(100vh - 140px);
+    overflow-y: auto;
+}
+
+.criteria-list {
+    padding-left: 20px;
+}
+
+.criterion-item {
+    margin-bottom: 30px;
+    padding: 15px 10px;
+    background: #37373D;
+    border-radius: 6px;
+}
+
+.criterion-header ul{
+    padding-left: 15px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.rating-scale {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 5px 0 15px 0;
+}
+
+.grade-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.grade-option input[type="radio"] {
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.grade-option span {
+    font-size: 14px;
+
+}
+
+.comment-section textarea {
+    width: 100%;
+    padding: 10px;
+    background: #1E1E1E;
+    border: 1px solid #5765F2;
+    border-radius: 4px;
+    color: #E4E4E5;
+    resize: vertical;
+}
+
+.document-viewer::-webkit-scrollbar,
+.criteria-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.document-viewer::-webkit-scrollbar-track,
+.criteria-panel::-webkit-scrollbar-track {
+    background: #1E1E1E;
+}
+
+.document-viewer::-webkit-scrollbar-thumb,
+.criteria-panel::-webkit-scrollbar-thumb {
+    background: #5765F2;
+    border-radius: 4px;
+}
+/* Критерии */
+
+.button-group > .save{
+    width: 215px;
+    height: 70px;
+    border-radius: 10px;
+    font-size: 36px;
+    margin: 0 auto;
 }
