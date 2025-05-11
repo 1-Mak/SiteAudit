@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>AUDIT.it</title>
+  <link href="../static/css/1.welcome_styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div class="name">AUDIT.it</div>
+    <ul>
+      <li><a href="#">Log in</a></li>
+      <li>|</li>
+      <li><a href="#">Sign up</a></li>
+    </ul>
+  </header>
+
+  <div class="page">
+    <div class="ai-container">
+      <a href="{{ url_for('aiaudit') }}">AI-Powered Audit</a>
+      <div class="ai-text">Try our pre-trained neural network and upload your files for quality assessment!</div>
+    </div>
+
+    <div class="extra-container">
+      <a href="#">Manual Audit</a>
+      <div class="text">You can use the classic manual method of checking your file with the help of our pre-made template.</div>
+    </div>
+ 
+    <div class="example-container">
+      <h1>Example of AI-Powered audit:</h1>
+      <div class="example">
+        <ol>
+          <li>Introduction and project purpose
+            <ul>
+              <li>score: 7</li>
+              <li>comment: The title and tagline are clear and concise.</li>
+            </ul>
+          </li>
+        
+          <li>Clarity of explanations
+            <ul>
+              <li>score: 9</li>
+              <li>comment: The description clearly states its a simple, batteriesincluded Python library for realtime streaming analytics.</li>
+            </ul>
+          </li>
+        
+          <li>Presence of main structure
+            <ul>
+              <li>score: 8</li>
+              <li>comment: Sections for Features, Contributing, License, and Acknowledgements are present.</li>
+            </ul>
+          </li>
+        
+          <li>Content completeness
+            <ul>
+              <li>score: 8</li>
+              <li>comment: Covers installation, usage, and features.</li>
+            </ul>
+          </li>
+        
+          <li>Usage examples
+            <ul>
+              <li>score: 3</li>
+              <li>comment: No code snippets or code snippets in the README.</li>
+            </ul>
+          </li>
+        
+          <li>External resource links
+            <ul>
+              <li>score: 9</li>
+              <li>comment: Links to CI, license, and releases are present.</li>
+            </ul>
+          </li>
+        
+          <li>Navigation and formatting
+            <ul>
+              <li>score: 7</li>
+              <li>comment: Clean headings, but could use a TOC.</li>
+            </ul>
+          </li>
+        
+          <li>Support information
+            <ul>
+              <li>score: 9</li>
+              <li>comment: Community and support links are present.</li>
+            </ul>
+          </li>
+        
+          <li>License and authorship
+            <ul>
+              <li>score: 9</li>
+              <li>comment: License is clearly stated.</li>
+            </ul>
+          </li>
+        
+          <li>Content relevance
+            <ul>
+              <li>score: 8</li>
+              <li>comment: Actively maintained with recent releases.</li>
+            </ul>
+          </li>
+        
+          <li>Language correctness
+            <ul>
+              <li>score: 8</li>
+              <li>comment: English is clear and error-free.</li>
+            </ul>
+          </li>
+        
+          <li>Link verification
+            <ul>
+              <li>score: 9</li>
+              <li>comment: All links resolve correctly.</li>
+            </ul>
+          </li>
+        
+          <li>Diagram verification
+            <ul>
+              <li>score: 2</li>
+              <li>comment: No diagrams beyond the logo.</li>
+            </ul>
+          </li>
+        </ol>
+        
+        <p><strong>Recommendations for improvement:</strong  > Add a TOC, include a LICENSE badge, surface a TOC, and provide a high-level architecture diagram.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-text">WEBSITE FOR DOCUMENT AUDITS. ALL RIGHTS RESERVED.</div>
+  </footer>
+  
+</body>
+</html>
