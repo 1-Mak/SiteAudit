@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <title>AUDIT.it</title>
+  <link href="../static/css/2.audit_styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="name">AUDIT.it</div>
+        <ul>
+            <li><a href="#">Log in</a></li>
+            <li>|</li>
+            <li><a href="#">Sign up</a></li>
+        </ul>
+    </header>
+
+    <article>
+        <a href="{{ url_for('welcome') }}" class="article">←Back</a>
+        <div class="name-container">
+            <div class="article line">AI-Powered Audit</div>
+            <p>AI will check structure, clarity, and technical accuracy</p>
+        </div>
+    </article>
+
+    <div class="page">
+        <div class="button-group">
+            <button class="audit article">
+                Save audit
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-text">WEBSITE FOR DOCUMENT AUDITS. ALL RIGHTS RESERVED.</div>
+    </footer>
+
+</body>

@@ -28,20 +28,20 @@ def extract_text(file_path, file_extension):
     else:
         return ''
 
-@app.route('/')
+@app.route('/welcome')
 def welcome():
     # Показываем шаблон index.html — главную страницу
-    return render_template('welcome.html')
+    return render_template('1.welcome.html')
 
 @app.route('/about')
 def about():
     # Показываем шаблон about.html
     return render_template('about.html')
 
-@app.route('/audit')
-def audit():
+@app.route('/aiaudit')
+def aiaudit():
     # Показываем шаблон about.html
-    return render_template('audit.html')
+    return render_template('2.ai-audit.html')
 
 @app.route('/audit_hand')
 def audit_hand():

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <title>AUDIT.it</title>
+  <link href="../static/css/2.audit_styles.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head> 
+
+<body>  
+  <header>
+    <div class="name">AUDIT.it</div>
+    <ul>
+      <li><a href="#">Log in</a></li>
+      <li>|</li>
+      <li><a href="#">Sign up</a></li>
+    </ul>
+  </header>
+
+  <article>
+    <a href="{{ url_for('welcome') }}" class="article">←Back</a>
+    <div class="name-container">
+      <div class="article line">Manual Audit</div>
+      <p>Use our pre-made templates to evaluate  your file</p>
+    </div>
+  </article>
+
+  <div class="page">
+    <div class="type-container">
+      
+      <div class="type-column">
+          <div class="article">Select document type:</div>
+          <div class="radio-group">
+              <label class="radio-container" data-tooltip-big="Text files containing a description of the project, instructions for installation and use, and other important information. They help users quickly understand the purpose of the project and get started with it.">
+                  <input type="radio" name="doc-type" value="readme" checked>
+                  <span class="radio-custom"></span>
+                  <span class="radio-label article">README</span>
+              </label>
+              
+              <label class="radio-container" data-tooltip="Coming soon...">
+                  <input type="radio" name="doc-type" value="instructions" disabled>
+                  <span class="radio-custom"></span>
+                  <span class="radio-label article">Instructions</span>
+              </label>
+              
+              <label class="radio-container" data-tooltip="Coming soon...">
+                  <input type="radio" name="doc-type" value="e2e" disabled>
+                  <span class="radio-custom"></span>
+                  <span class="radio-label article">End-to-end</span>
+              </label>
+          </div>
+      </div>
+
+      <div class="extra-column">
+          <div class="article">Select extra checks:</div>
+          <div class="checkbox-group">
+            <label class="checkbox-container">
+                <input type="checkbox" name="check-format">
+                <span class="checkmark"></span>
+                <span class="check-label article">Installation steps</span>
+            </label>
+            
+            <label class="checkbox-container">
+                <input type="checkbox" name="check-links">
+                <span class="checkmark"></span>
+                <span class="check-label article">System requirements</span>
+            </label>
+            
+            <label class="checkbox-container">
+                <input type="checkbox" name="check-license">
+                <span class="checkmark"></span>
+                <span class="check-label article">Screenshots</span>
+            </label>
+          </div>    
+      </div>
+    </div>
+
+    <div class="button-group">
+        <button id="uploadButton" class="attach article" onclick="triggerFileInput()">
+            Attach file
+        </button>
+        <button class="audit article" onclick="startAudit()">
+            Start audit
+        </button>
+    </div>
+
+    
+  </div>
+  
+  <footer>
+    <div class="footer-text">WEBSITE FOR DOCUMENT AUDITS. ALL RIGHTS RESERVED.</div>
+  </footer>
+
+  <!-- ================================= -->
+  <script>
+    document.querySelectorAll('input[name="doc-type"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        if(this.value !== 'readme') {
+            document.getElementById('comingSoonModal').style.display = 'block';
+            this.checked = false;
+            document.querySelector('input[value="readme"]').checked = true;
+        }
+    });
+});
+
+function triggerFileInput() {
+    document.getElementById('fileInput').click();
+}
+
+function startAudit() {
+    const checks = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+                     .map(check => check.name);
+    console.log('Selected checks:', checks);
+}
+  </script>
+
+
+</body>
+</html>
