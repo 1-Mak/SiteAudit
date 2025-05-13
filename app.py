@@ -28,15 +28,10 @@ def extract_text(file_path, file_extension):
     else:
         return ''
 
-@app.route('/welcome')
+@app.route('/')
 def welcome():
     # Показываем шаблон index.html — главную страницу
     return render_template('1.welcome.html')
-
-@app.route('/about')
-def about():
-    # Показываем шаблон about.html
-    return render_template('about.html')
 
 @app.route('/aiaudit')
 def aiaudit():
@@ -56,33 +51,27 @@ def upload_file():
 @app.route('/analyze', methods=['POST'])
 def analyze():
     # Проверяем, есть ли файл в запросе
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
     file = request.files['file']
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
 
     # Защищаем имя файла и получаем расширение
     filename = secure_filename(file.filename)
     file_extension = os.path.splitext(filename)[1].lower()
 
-    # Проверяем, что расширение допустимо
-    if file_extension not in ['.txt', '.docx', '.pdf']:
-        return jsonify({'error': 'Only .txt, .docx, and .pdf files are allowed'}), 400
+    
 
     # Сохраняем файл
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(file_path)
 
-    # Извлекаем текст
-    content = extract_text(file_path, file_extension)
+    # # Извлекаем текст
+    # content = extract_text(file_path, file_extension)
 
-    # Формируем краткое содержимое (первые 100 символов)
-    summary = content[:100] + '...' if len(content) > 100 else content
+    # # Формируем краткое содержимое (первые 100 символов)
+    # summary = content[:100] + '...' if len(content) > 100 else content
 
-    # Возвращаем ответ
-    return jsonify({'filename': filename, 'summary': summary})
-
+    # # Возвращаем ответ
+    # return jsonify({'filename': filename, 'summary': summary})
+    return '', 204
 
 @app.route('/view/<filename>')
 def view_file(filename):

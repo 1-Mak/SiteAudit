@@ -75,9 +75,12 @@
     </div>
 
     <div class="button-group">
-        <button id="uploadButton" class="attach article" onclick="triggerFileInput()">
-            Attach file
-        </button>
+        <form action="/analyze" method="POST" enctype="multipart/form-data">
+          <input type="file" id="fileInput" name="file" style="display: none;" onchange="this.form.submit()">
+          <button type="button" class="attach article" onclick="document.getElementById('fileInput').click()">
+              Attach file
+          </button>
+        </form>
         <button class="audit article" onclick="startAudit()">
             Start audit
         </button>
