@@ -266,7 +266,6 @@ article a:hover {
     font-size: 20px;
 }
 
-
 .button-group button{
     display: flex;
     justify-content: center;
@@ -284,7 +283,7 @@ article a:hover {
     color: #28282D;
     background-color: #AAAAB1;
     border: 1px solid;
-
+    
 }
 
 .attach:hover{
@@ -296,17 +295,12 @@ article a:hover {
     color: #E4E4E5;
     background-color: #5765F2;
     border: 1px solid;
-    margin-right: 75px;
+    margin-right: 70px;
 }
 
 .audit:hover{
     border-color: #7883ff;
     background-color: #7883ff;
-}
-
-.audit:disabled{
-    background-color: #8d94df;
-    border: 1px solid #E4E4E5;
 }
 /* прикрепление файла */
 
@@ -325,21 +319,15 @@ footer {
 .wait-container{
     margin: 100px 0;
     padding-left: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
 }
 
-.pls-wait{
-    margin-left: 100px;
+.est{
+    margin-top: 40px;
 }
 /* waiting */
 
 
 /* manual manual manual*/
-
-
 .audit-container {
     display: grid;
     grid-template-columns: 1fr 400px;

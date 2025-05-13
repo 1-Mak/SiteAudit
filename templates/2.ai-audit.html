@@ -9,11 +9,6 @@
 <body>  
   <header>
     <div class="name">AUDIT.it</div>
-    <ul>
-      <li><a href="#">Log in</a></li>
-      <li>|</li>
-      <li><a href="#">Sign up</a></li>
-    </ul>
   </header>
 
   <article>
@@ -75,14 +70,23 @@
     </div>
 
     <div class="button-group">
-        <form action="/analyze" method="POST" enctype="multipart/form-data">
-          <input type="file" id="fileInput" name="file" style="display: none;" onchange="this.form.submit()">
-          <button type="button" class="attach article" onclick="document.getElementById('fileInput').click()">
-              Attach file
-          </button>
-        </form>
+        <div class="file-container">
+          <div class="formats"><strong>Supported file formats:</strong><br>
+                      .md  .pdf  .html  .docx  .txt<br>
+                      <br>
+                      <strong>Max file size:</strong> 4096 tokens</div>
+
+          <form action="/analyze" method="POST" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="file" style="display: none;" onchange="this.form.submit()">
+            <button type="button" class="attach article" onclick="document.getElementById('fileInput').click()">
+                Attach file
+            </button>
+          </form>
+
+          <div class="article" id="fileAttachedText" style="visibility: hidden;">✅ File attached!</div>
+        </div>
         <form action="/aiaudit_start">
-          <button class="audit article">
+          <button class="audit article" disabled id="auditButton">
             Start audit
         </button>
         </form>
@@ -98,6 +102,37 @@
 
   <!-- ================================= -->
   <script>
+    // Инициализация начального состояния
+    document.getElementById('fileAttachedText').style.visibility = 'hidden';
+    document.getElementById('auditButton').disabled = true;
+
+    // Обработчик изменения файла
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        const attachButton = document.querySelector('.attach');
+        const fileAttachedText = document.getElementById('fileAttachedText');
+        const auditButton = document.getElementById('auditButton');
+
+        if(this.files.length > 0) {
+            // Меняем текст кнопки
+            attachButton.textContent = 'Change file';
+            // Показываем надпись
+            fileAttachedText.style.visibility = 'visible';
+            // Активируем кнопку аудита
+            auditButton.disabled = false;
+            
+            // Автоматическая отправка формы
+            const formData = new FormData();
+            formData.append('file', this.files[0]);
+            
+            // Здесь можно добавить AJAX-загрузку файла
+            // this.form.submit(); // Раскомментировать для автоматической отправки
+        } else {
+            // Возвращаем в исходное состояние
+            attachButton.textContent = 'Attach file';
+            fileAttachedText.style.visibility = 'hidden';
+            auditButton.disabled = true;
+        }
+    });
     document.querySelectorAll('input[name="doc-type"]').forEach(radio => {
     radio.addEventListener('change', function() {
         if(this.value !== 'readme') {

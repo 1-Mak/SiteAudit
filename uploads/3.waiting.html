@@ -26,11 +26,10 @@
                 <img src="{{ url_for('static', filename='images/loader.gif') }}" alt="Loading..." />
             </div>
             
-            <div class="pls-wait">
+            <div class="container">
                 <div class="article">Please, wait.<br>
                     Your file is being processed...</div>
-                    <br>
-                <div>estimated time ~3 min</div>
+                <div class="est">estimated time ~3 min</div>
             </div>
         </div>
     </div>
@@ -47,7 +46,7 @@
         if (data.ready) {
             window.location.href = "/aiaudit_result";
         } else {
-            setTimeout(checkResult, 3000); 
+            setTimeout(checkResult, 3000); // Повторить через 3 секунды
         }
     }
 
