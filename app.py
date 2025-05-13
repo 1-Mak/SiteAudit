@@ -1,11 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 from werkzeug.utils import secure_filename
 import os
 from docx import Document
 import PyPDF2
+import mammoth
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
+app.secret_key = 'KonstantaSosat'
 
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
@@ -38,15 +41,27 @@ def aiaudit():
     # Показываем шаблон about.html
     return render_template('2.ai-audit.html')
 
-@app.route('/audit_hand')
-def audit_hand():
+@app.route('/manaudit')
+def manaudit():
     # Показываем шаблон about.html
-    return render_template('upload_file.html')
+    return render_template('5.manual-audit.html')
 
-@app.route('/upload_file')
-def upload_file():
-    # Показываем шаблон about.html
-    return render_template('upload_file.html')
+@app.route('/manaudit_check')
+def manaudit_check():
+    filename = session.get('uploaded_file')
+    if not filename:
+        return 'Файл не был загружен.', 400
+
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+    try:
+        with open(file_path, "rb") as docx_file:
+            result = mammoth.convert_to_html(docx_file)
+            html_content = result.value  # Преобразованный HTML
+        return render_template('6.manual-check.html', content=html_content)
+    except Exception as e:
+        return f'Ошибка при обработке файла: {str(e)}', 500
+
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
@@ -63,6 +78,7 @@ def analyze():
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(file_path)
 
+    session['uploaded_file'] = filename
     # # Извлекаем текст
     # content = extract_text(file_path, file_extension)
 
@@ -72,6 +88,26 @@ def analyze():
     # # Возвращаем ответ
     # return jsonify({'filename': filename, 'summary': summary})
     return '', 204
+
+@app.route('/save_audit', methods=['POST'])
+def save_audit():
+    data = request.get_json()
+    criteria = data.get('criteria', [])
+    general_comment = data.get('general_comment', '')
+
+    try:
+        # Пример: сохраняем как JSON файл
+        import json
+        with open('audit_result.json', 'w', encoding='utf-8') as f:
+            json.dump({
+                'criteria': criteria,
+                'general_comment': general_comment,
+                'file_name' : session.get('uploaded_file')
+            }, f, ensure_ascii=False, indent=2)
+
+        return jsonify({'status': 'success'})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 @app.route('/view/<filename>')
 def view_file(filename):

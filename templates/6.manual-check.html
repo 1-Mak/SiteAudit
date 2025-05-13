@@ -54,7 +54,7 @@
             <div class="document-content">
                 <div class="article">Document Preview</div>
                 <div id="file-content">
-                    <!-- Сюда будет вставляться содержимое документа -->
+                    {{ content|safe }}
                 </div>
             </div>
         </div>
@@ -282,7 +282,7 @@
 
     function saveAudit() {
     const auditData = [];
-    
+
     document.querySelectorAll('.criterion-item').forEach((item, index) => {
         const criterion = {
             id: index + 1,
@@ -292,18 +292,31 @@
         auditData.push(criterion);
     });
 
-    // Генерация PDF
-    const doc = new jsPDF();
-    doc.setFontSize(16);
-    doc.text('Audit Report', 15, 15);
-    
-    auditData.forEach((item, index) => {
-        const yPos = 25 + (index * 30);
-        doc.text(`${item.id}. Grade: ${item.grade}`, 15, yPos);
-        doc.text(`Comment: ${item.comment}`, 15, yPos + 10);
-    });
+    const generalComment = document.querySelector('.button-group textarea').value;
 
-    doc.save('audit-report.pdf');
+    // Отправка на сервер
+    fetch('/save_audit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            criteria: auditData,
+            general_comment: generalComment
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Аудит успешно сохранён!');
+        } else {
+            alert('Ошибка при сохранении аудита.');
+        }
+    })
+    .catch(err => {
+        console.error('Ошибка:', err);
+        alert('Произошла ошибка при отправке данных.');
+    });
 }
+
 </script>
 </html>

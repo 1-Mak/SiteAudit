@@ -1,0 +1,56 @@
+{
+  "criteria": [
+    {
+      "id": 1,
+      "grade": "1",
+      "comment": "1"
+    },
+    {
+      "id": 2,
+      "grade": "2",
+      "comment": "2"
+    },
+    {
+      "id": 3,
+      "grade": "3",
+      "comment": "3"
+    },
+    {
+      "id": 4,
+      "grade": "4",
+      "comment": "4"
+    },
+    {
+      "id": 5,
+      "grade": "5",
+      "comment": "5"
+    },
+    {
+      "id": 6,
+      "grade": "6",
+      "comment": "6"
+    },
+    {
+      "id": 7,
+      "grade": "7",
+      "comment": "7"
+    },
+    {
+      "id": 8,
+      "grade": "8",
+      "comment": "8"
+    },
+    {
+      "id": 9,
+      "grade": "9",
+      "comment": "9"
+    },
+    {
+      "id": 10,
+      "grade": "1",
+      "comment": "1"
+    }
+  ],
+  "general_comment": "112",
+  "file_name": "IT_DNS.docx"
+}
