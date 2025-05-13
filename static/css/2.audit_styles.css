@@ -35,7 +35,7 @@ header{
     align-items: center;
     position: fixed;
     top: 0;
-    background-color: #5765F2;
+    background-color: #0B18A2;
     border-radius: 0 0 10px 10px;
     z-index: 1000;
 }
@@ -144,7 +144,7 @@ article a:hover {
     width: 27px;
     height: 27px;
     border-radius: 50%;
-    background: #5765F2;
+    background: #0B18A2;
   }
   
   .radio-container input:checked ~ .radio-custom:after {
@@ -223,7 +223,7 @@ article a:hover {
 }
 
 .checkbox-container input:checked ~ .checkmark {
-    background-color: #5765F2;
+    background-color: #0B18A2;
 }
 
 .checkmark:after {
@@ -281,7 +281,7 @@ article a:hover {
 }
 
 .attach{
-    color: #28282D;
+    color: #121214;
     background-color: #AAAAB1;
     border: 1px solid;
 
@@ -294,14 +294,14 @@ article a:hover {
 
 .audit{
     color: #E4E4E5;
-    background-color: #5765F2;
+    background-color: #0B18A2;
     border: 1px solid;
     margin-right: 75px;
 }
 
 .audit:hover{
-    border-color: #7883ff;
-    background-color: #7883ff;
+    border-color: #000b8a;
+    background-color: #000b8a;
 }
 
 .audit:disabled{
@@ -412,7 +412,7 @@ footer {
     width: 100%;
     padding: 10px;
     background: #1E1E1E;
-    border: 1px solid #5765F2;
+    border: 1px solid #0B18A2;
     border-radius: 4px;
     color: #E4E4E5;
     resize: vertical;
@@ -430,7 +430,7 @@ footer {
 
 .document-viewer::-webkit-scrollbar-thumb,
 .criteria-panel::-webkit-scrollbar-thumb {
-    background: #5765F2;
+    background: #0B18A2;
     border-radius: 4px;
 }
 /* Критерии */

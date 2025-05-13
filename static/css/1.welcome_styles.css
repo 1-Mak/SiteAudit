@@ -23,7 +23,7 @@ header{
     align-items: center;
     position: fixed;
     top: 0;
-    background-color: #5765F2;
+    background-color: #0B18A2;
     border-radius: 0 0 10px 10px;
 }
 
@@ -71,15 +71,15 @@ a:visited{
 }
   
 .ai-container a{
-    background-color: #5765F2;
+    background-color: #0B18A2;
     margin-bottom: 40px;
     margin-left: 200px;
     border: 1px solid #28282D;
 }
 
 .ai-container a:hover{
-    background-color: #7883ff;
-    border-color: #7883ff;
+    background-color: #000b8a;
+    border-color: #000b8a;
 }
 
 .ai-text{
@@ -98,7 +98,7 @@ a:visited{
 }
 
 .extra-container a{
-    color: #28282D;
+    color: #121214;
     background-color: #AAAAB1;
     border: 1px solid;
     margin-right: 30px;
