@@ -4,11 +4,17 @@ import os
 from docx import Document
 import PyPDF2
 import mammoth
+import time
+import threading
 
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.secret_key = 'KonstantaSosat'
+
+
+processing_status = {'ready': False}
+
 
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
@@ -40,6 +46,36 @@ def welcome():
 def aiaudit():
     # Показываем шаблон about.html
     return render_template('2.ai-audit.html')
+
+@app.route('/aiaudit_start')
+def aiaudit_start():
+    # Запускаем обработку в фоновом потоке
+    thread = threading.Thread(target=aiaudit_process)
+    thread.start()
+
+    return render_template('3.waiting.html')
+
+
+def aiaudit_process():
+    global processing_status
+    time.sleep(30)  # Тут твоя нейросеть работает (замени на реальную функцию)
+    processing_status['ready'] = True
+
+
+@app.route('/check_aiaudit_status')
+def check_aiaudit_status():
+    return jsonify({'ready': processing_status['ready']})
+
+
+@app.route('/aiaudit_result')
+def aiaudit_result():
+    global processing_status
+    if not processing_status['ready']:
+        return redirect('/aiaudit_start')
+    processing_status = {'ready': False}
+    return render_template('4.result.html')
+
+
 
 @app.route('/manaudit')
 def manaudit():

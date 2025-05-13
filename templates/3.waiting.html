@@ -26,9 +26,16 @@
 
     <div class="page">
         <div class="wait-container">
-            <div class="article">Please, wait.<br>
-                Your file is being processed...</div>
-            <div class="est">estimated time ~3 min</div>
+            
+            <div id="loader" class="loader_gif">
+                <img src="{{ url_for('static', filename='images/loader.gif') }}" alt="Loading..." />
+            </div>
+            
+            <div class="container">
+                <div class="article">Please, wait.<br>
+                    Your file is being processed...</div>
+                <div class="est">estimated time ~3 min</div>
+            </div>
         </div>
     </div>
 
@@ -36,4 +43,18 @@
         <div class="footer-text">WEBSITE FOR DOCUMENT AUDITS. ALL RIGHTS RESERVED.</div>
     </footer>
 
+    <script>
+    async function checkResult() {
+        const response = await fetch('/check_aiaudit_status');
+        const data = await response.json();
+
+        if (data.ready) {
+            window.location.href = "/aiaudit_result";
+        } else {
+            setTimeout(checkResult, 3000); // Повторить через 3 секунды
+        }
+    }
+
+    checkResult();
+  </script>
 </body>
