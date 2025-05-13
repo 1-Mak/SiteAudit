@@ -45,24 +45,6 @@ header{
     font-size: 64px;
 }
  
-header ul{
-    margin-right: 50px;
-    background-color: #28282D;
-    width: auto;
-    padding: 0 10px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-}
-
-header li{
-    display: inline;
-    margin: 5px;        
-    font-size: 24px;
-    width: auto;
-}
-
 a:link,
 a:visited{
     text-decoration: none;
@@ -260,7 +242,7 @@ article a:hover {
 .checkbox-container input:checked ~ .checkmark:after {
     display: block;
 }
-
+/* checkbox */
 
 .button-group {
     display: flex;
