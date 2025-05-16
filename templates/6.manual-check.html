@@ -48,7 +48,7 @@
         <div class="document-viewer">
             <div class="document-content">
                 <div class="article">Document Preview</div>
-                <div id="file-content">
+                <div id="file-content" class="">
                     {{ content|safe }}
                 </div>
             </div>
@@ -289,7 +289,6 @@
 
     const generalComment = document.querySelector('.button-group textarea').value;
 
-    // Отправка на сервер
     fetch('/save_audit', {
         method: 'POST',
         headers: {
@@ -300,11 +299,18 @@
             general_comment: generalComment
         })
     })
-    .then(response => {
-        if (response.ok) {
-            alert('Аудит успешно сохранён!');
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            const a = document.createElement('a');
+            a.href = data.download_url;
+            a.download = data.file;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            alert('Аудит успешно сохранён и скачан!');
         } else {
-            alert('Ошибка при сохранении аудита.');
+            alert('Ошибка при сохранении аудита: ' + (data.message || ''));
         }
     })
     .catch(err => {

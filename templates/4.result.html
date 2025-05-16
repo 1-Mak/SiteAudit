@@ -2,8 +2,12 @@
 <head>
   <meta charset="UTF-8" />
   <title>AUDIT.it</title>
-  <link href="../static/css/2.audit_styles.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/2.audit_styles.css') }}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    
+  </style>
 </head>
 
 <body>
@@ -15,13 +19,25 @@
         <a href="{{ url_for('welcome') }}" class="article">←Back</a>
         <div class="name-container">
             <div class="article line">AI-Powered Audit</div>
-            <p>AI will check structure, clarity, and technical accuracy</p>
+            <p>AI has analyzed your document. Results below:</p>
         </div>
     </article>
-
+    
     <div class="page">
+        <div class="audit-container">
+            <div class="original-content">
+                <h3 class="section-title">Original README Content</h3>
+                {{ readme_html|safe }}
+            </div>
+            
+            <div class="markdown-body">
+                <h1>AI Audit Results</h1>
+                {{ criteria_html|safe }}
+            </div>
+        </div>
+        
         <div class="button-group">
-            <button class="audit article">
+            <button class="audit article" onclick="saveAudit()">
                 Save audit
             </button>
         </div>
@@ -31,4 +47,36 @@
         <div class="footer-text">WEBSITE FOR DOCUMENT AUDITS. ALL RIGHTS RESERVED.</div>
     </footer>
 
+   <script>
+function saveAudit() {
+    const content = document.querySelector('.markdown-body').innerHTML;
+
+    fetch('/save_audit_ai', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ criteria_html: content })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            const link = document.createElement('a');
+            link.href = data.download_url;
+            link.download = data.file;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            alert('Аудит успешно сохранён и скачан!');
+        } else {
+            alert('Ошибка при сохранении аудита: ' + (data.message || ''));
+        }
+    })
+    .catch(() => alert('Ошибка сети при сохранении аудита.'));
+}
+</script>
+
+
 </body>
+</html>

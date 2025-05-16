@@ -2,55 +2,55 @@
   "criteria": [
     {
       "id": 1,
-      "grade": "1",
-      "comment": "1"
+      "grade": "5",
+      "comment": ""
     },
     {
       "id": 2,
-      "grade": "2",
-      "comment": "2"
+      "grade": "5",
+      "comment": ""
     },
     {
       "id": 3,
-      "grade": "3",
-      "comment": "3"
+      "grade": "6",
+      "comment": ""
     },
     {
       "id": 4,
-      "grade": "4",
-      "comment": "4"
+      "grade": 0,
+      "comment": ""
     },
     {
       "id": 5,
-      "grade": "5",
-      "comment": "5"
+      "grade": 0,
+      "comment": ""
     },
     {
       "id": 6,
-      "grade": "6",
-      "comment": "6"
+      "grade": 0,
+      "comment": ""
     },
     {
       "id": 7,
-      "grade": "7",
-      "comment": "7"
+      "grade": 0,
+      "comment": ""
     },
     {
       "id": 8,
-      "grade": "8",
-      "comment": "8"
+      "grade": 0,
+      "comment": ""
     },
     {
       "id": 9,
-      "grade": "9",
-      "comment": "9"
+      "grade": 0,
+      "comment": ""
     },
     {
       "id": 10,
-      "grade": "1",
-      "comment": "1"
+      "grade": 0,
+      "comment": ""
     }
   ],
-  "general_comment": "112",
+  "general_comment": "",
   "file_name": "IT_DNS.docx"
 }

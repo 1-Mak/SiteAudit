@@ -341,10 +341,11 @@ footer {
 
 
 .audit-container {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     grid-template-columns: 1fr 400px;
     gap: 30px;
-    height: calc(100vh - 140px);
+    height: auto;
     margin: 20px auto;
     max-width: 1600px;
 }
@@ -442,3 +443,14 @@ footer {
     font-size: 36px;
     margin: 0 auto;
 }
+.formatted-content {
+            white-space: pre-wrap;
+            font-family: Consolas, monospace;
+            background-color: #f9f9f9;
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 2em auto;
+            line-height: 1.5;
+        }
